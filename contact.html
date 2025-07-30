@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Rotary Club Hyderabad GALAXY</title>
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;    
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #ffffff;
+            color: #333;
+            padding: 5px 0;
+            border-bottom: 4px solid #005daa; /* Main Blue */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+            height: 80px;
+        }
+
+        header nav ul {
+            list-style: none; padding: 0; margin: 0; display: flex; align-items: center;
+        }
+
+        header nav ul li {
+            margin-left: 25px; position: relative;
+        }
+
+        header nav ul li a {
+            color: #005daa; text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover, header nav ul li a.active-nav {
+            color: #f7a81b; /* Main Gold */
+        }
+        
+        /* General Section Styling */
+        main section { padding: 60px 0; }
+        h2 { text-align: center; margin-bottom: 3rem; font-size: 2.8rem; font-weight: 700; }
+        .blue-text { color: #005daa; }
+        .gold-text { color: #f7a81b; }
+
+        /* --- NEW: Page Banner Section (after nav bar) --- */
+        #page-banner {
+            /* You can replace this URL with your preferred image */
+            background-image: url('https://plus.unsplash.com/premium_photo-1675842663249-a8b70103dbaa?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Example: A subtle, professional background */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Creates a nice parallax effect */
+            position: relative;
+            z-index: 1;
+            min-height: 40vh; /* Adjust height as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff; /* Text color for the heading on the banner */
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1); /* Subtle shadow at the bottom */
+        }
+
+        /* Overlay for readability on the banner */
+        #page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 41, 88, 0.65); /* A dark blue overlay, consistent with Rotary colors */
+            z-index: -1;
+        }
+
+        #page-banner h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* --- CONTACT PAGE STYLES (now without its own background image) --- */
+        #contact-page {
+            background-color: #ffffff; /* Ensure it's white */
+            padding: 60px 0; /* Keep consistent padding */
+            position: static; /* Reset positioning */
+            z-index: auto; /* Reset z-index */
+        }
+        
+        /* Ensure no residual overlay from previous implementation */
+        #contact-page::before {
+            display: none; 
+        }
+
+        .contact-wrapper {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .contact-form {
+            flex: 2;
+            min-width: 320px;
+            background: #fdfdfd; /* Slightly off-white to stand out from page white */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            background: #fdfdfd;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #005daa;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #f7a81b;
+            box-shadow: 0 0 0 2px rgba(247, 168, 27, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block; background: #f7a81b; color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 50px; margin-top: 1rem; font-weight: bold; font-size: 1.1rem; transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .cta-button:hover {
+            background: #e69500; transform: translateY(-3px);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.6rem;
+            color: #005daa;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f7a81b;
+            padding-bottom: 10px;
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info p span {
+            font-size: 1.5rem;
+            color: #f7a81b;
+            margin-right: 15px;
+            width: 30px; /* Align icons nicely */
+        }
+        .contact-info a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-info a:hover {
+            color: #005daa;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+            border-radius: 10px;
+        }
+        
+        /* Footer */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #f7a81b; padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: #f7a81b; }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: #f7a81b; }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: #f7a81b; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+
+        /* Responsive Design */
+        @media(max-width: 992px) {
+             header .container { flex-direction: column; }
+             header nav { margin-top: 15px; }
+        }
+        @media(max-width: 768px) {
+            header nav ul { flex-direction: column; align-items: center; }
+            header nav ul li { margin-left: 0; }
+            #page-banner h1 { font-size: 2.5rem; } /* Adjust banner title on small screens */
+            .contact-form, .contact-info { padding: 25px; } /* Smaller padding on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+                         <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="team .html">Team</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="Event.html">Events</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <!-- NEW: Page Banner Section -->
+        <section id="page-banner">
+            <div class="container">
+                <h1>Contact Us</h1>
+            </div>
+        </section>
+
+        <!-- Main Contact Content (Form, Info, Map) -->
+        <section id="contact-page" class="container">
+            <h2><span class="blue-text">Get In</span> <span class="gold-text">Touch</span></h2>
+            
+            <div class="contact-wrapper">
+                <!-- Contact Form on the Left -->
+                <div class="contact-form">
+                    <form action="#" method="POST"> <!-- Add your form processing URL to action attribute -->
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                        
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                        
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                        
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                        
+                        <button type="submit" class="cta-button">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info and Map on the Right -->
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                    <p><span>📞</span><a href="tel:+923009567717">+92 300 9567 717</a></p>
+                    <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+                    
+                    <h3 style="margin-top: 40px;">Our Location</h3>
+                    <div class="map-container">
+                        <!-- 
+                            HOW TO EMBED YOUR GOOGLE MAP:
+                            1. Go to Google Maps and search for your address.
+                            2. Click the "Share" button.
+                            3. Select the "Embed a map" tab.
+                            4. Click "COPY HTML" and paste the entire iframe code below, replacing this one.
+                        -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.704258752243!2d68.2562476759553!3d25.38133182390895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c4cce8f05e267%3A0x6b3f338d68cf627a!2sSindh%20University%20Colony%20Jamshoro%2C%20Jamshoro%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Our Services</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="team .html">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 300 9567 717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links (useful for footer links)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                let target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

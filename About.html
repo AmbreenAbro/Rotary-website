@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Rotary Club Hyderabad GALAXY</title>
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation (Consistent) */
+        header {
+            background: #ffffff;
+            padding: 5px 0;
+            border-bottom: 4px solid #005daa;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        #logo img { height: 80px; }
+        header nav ul { list-style: none; padding: 0; margin: 0; display: flex; align-items: center; }
+        header nav ul li { margin-left: 25px; }
+        header nav ul li a { color: #005daa; text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out; }
+        header nav ul li a:hover { color: #f7a81b; }
+        
+        /* --- ABOUT PAGE HERO WITH VIDEO BACKGROUND --- */
+        #about-hero {
+            position: relative;
+            height: 70vh; /* UPDATED: Increased from 50vh for a larger background */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        #bg-video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: 1;
+        }
+        #about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 41, 88, 0.75);
+            z-index: 2;
+        }
+        .about-hero-content {
+            position: relative;
+            z-index: 3;
+            color: #ffffff;
+        }
+        .about-hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Main Content Styling */
+        .content-section {
+            padding: 80px 0;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+        .sub-heading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 4rem;
+        }
+        .blue-text { color: #005daa; }
+        .gold-text { color: #f7a81b; }
+
+        /* --- REDESIGNED "WHO WE ARE" SECTION --- */
+        .about-intro-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Text on left, image on right */
+            align-items: center;
+            gap: 50px;
+        }
+        .about-intro-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .about-intro-text h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .about-intro-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        .about-intro-text blockquote {
+            border-left: 4px solid #f7a81b;
+            padding-left: 20px;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #005daa;
+            margin: 0;
+        }
+
+        /* --- REDESIGNED MISSION & VISION SECTION --- */
+        #mission-vision {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1542847525-5e66a3e69f2e?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+        }
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .info-card h4 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            color: #005daa;
+            display: flex;
+            align-items: center;
+        }
+        .info-card h4 .icon { margin-right: 15px; color: #f7a81b; }
+        .info-card ul { list-style: none; padding: 0; margin-top: 20px; }
+        .info-card ul li { margin-bottom: 15px; font-size: 1.05rem; display: flex; align-items: flex-start; }
+        .info-card ul li::before { content: '✓'; font-weight: bold; margin-right: 12px; color: #005daa; }
+        .info-card p { font-size: 1.1rem; color: #333; }
+        
+        /* --- REDESIGNED CORE VALUES SECTION --- */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .value-card {
+            position: relative;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.3s;
+        }
+        .value-card:hover { transform: translateY(-10px); }
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 2;
+        }
+        .value-card .value-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transition: transform 0.4s;
+        }
+        .value-card:hover .value-bg { transform: scale(1.1); }
+        .value-content { position: relative; z-index: 3; }
+        .value-icon { height: 40px; width: auto; margin-bottom: 15px; filter: brightness(0) invert(1); }
+        .value-card h5 { font-size: 1.3rem; margin: 0 0 10px 0; color: white; }
+        .value-card p { margin: 0; font-size: 0.9rem; }
+        
+        /* --- REDESIGNED CTA SECTION --- */
+        #join-cta {
+            background: linear-gradient(rgba(212, 231, 247, 0.8), rgba(171, 217, 255, 0.8)), url('https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: #ffffff;
+            text-align: center;
+        }
+        #join-cta h2 { color: #ffffff; margin-bottom: 1rem; }
+        #join-cta p { color: rgba(255,255,255,0.9); margin: 0 auto 2rem auto; max-width: 600px; }
+        .cta-button {
+            display: inline-block; background: #f7a81b; color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 50px; margin-top: 1rem; font-weight: bold; font-size: 1.1rem; transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-button:hover {
+            background: #e69500; transform: translateY(-3px);
+        }
+        
+        /* Footer (Consistent) */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; text-align: left; margin: 0; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #f7a81b; padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: #f7a81b; }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: #f7a81b; }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: #f7a81b; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+        
+        /* Responsive Design */
+        @media(max-width: 992px) {
+             .about-intro-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width: 768px) {
+            .about-hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+         <header>
+        <div class="container">
+            <a href="#" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="Event.html">Evnet</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="about-hero">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="Aout.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="about-hero-content">
+            <h1>About Rotary Club Hyderabad</h1>
+        </div>
+    </section>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <div class="about-intro-grid">
+                    <div class="about-intro-text">
+                         <h2><span class="blue-text">Who We</span> <span class="gold-text">Are</span></h2>
+                         <p>Rotary Club Hyderabad, part of Rotary International District 3271, is a group of dedicated volunteers, professionals, and community leaders committed to creating positive change in Hyderabad. We work together to serve humanity, support local communities, and contribute to global peace and development.</p>
+                         <blockquote>“Service Above Self.”</blockquote>
+                    </div>
+                    <div class="about-intro-image">
+                        <img src="image/md_AetGpJ68mx73.jpg" alt="Rotary members planning a project">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission-vision" class="content-section">
+            <div class="container">
+                <div class="mission-vision-grid">
+                    <div class="info-card">
+                        <h4>
+                            <span class="icon">🎯</span>
+                            Our Mission
+                        </h4>
+                        <ul>
+                            <li>Improve health, education, and living conditions for people in need.</li>
+                            <li>Empower youth through leadership programs and career support.</li>
+                            <li>Protect the environment with sustainability projects.</li>
+                            <li>Promote peace, goodwill, and understanding through service.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                         <h4>
+                            <span class="icon">🌟</span>
+                            Our Vision
+                         </h4>
+                         <p>To be a leading club in Hyderabad that brings lasting improvements in people’s lives through sustainable service projects, community support, and youth development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+             <div class="container">
+                <h2><span class="blue-text">Our Core</span> <span class="gold-text">Values</span></h2>
+                <p class="sub-heading">The principles that guide every action we take.</p>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop" class="value-bg">
+                        <div class="value-content">
+                            <img src="https://i.imgur.com/mP0aLq3.png" alt="Fellowship Icon" class="value-icon">
+                            <h5>Fellowship</h5><p>Building lifelong friendships.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" class="value-bg">
+                        <div class="value-content">
+                             <img src="https://i.imgur.com/3Z7iY1g.png" alt="Integrity Icon" class="value-icon">
+                            <h5>Integrity</h5><p>Acting with honesty and fairness.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" class="value-bg">
+                        <div class="value-content">
+                            <img src="https://i.imgur.com/5J7Yc5N.png" alt="Diversity Icon" class="value-icon">
+                            <h5>Diversity</h5><p>Welcoming all backgrounds.</p>
+                        </div>
+                    </div>
+                    <div class="value-card">
+                         <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop" class="value-bg">
+                        <div class="value-content">
+                            <img src="https://i.imgur.com/r5k5m7j.png" alt="Service Icon" class="value-icon">
+                            <h5>Service</h5><p>Improving our community.</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join-cta" class="content-section">
+            <div class="container">
+                <h2>Join Our Movement</h2>
+                <p>Be part of a global network with local impact. By joining Rotary Club Hyderabad, you can connect with positive-minded people, take part in meaningful projects, and make a real difference in your community.</p>
+                <a href="#contact" class="cta-button">Become a Member</a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="https://i.imgur.com/vhyznb8.png" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 3009567717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for the CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Events | Rotary Club of Hyderabad Galaxy</title>
+    
+    <!-- Link to SwiperJS CSS for sliders -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <style>
+        /* General Body Styles */
+        :root {
+            --primary-color: #005daa; /* Main Blue */
+            --secondary-color: #f7a81b; /* Main Gold */
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --card-bg-color: #ffffff;
+            --shadow: 0 6px 15px rgba(0,0,0,0.08);
+            --light-gray-bg: #e9ecef;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;    
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #ffffff;
+            color: #333;
+            padding: 5px 0;
+            border-bottom: 4px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+            height: 80px;
+        }
+
+        header nav ul {
+            list-style: none; padding: 0; margin: 0; display: flex; align-items: center;
+        }
+
+        header nav ul li {
+            margin-left: 25px;
+        }
+
+        header nav ul li a {
+            color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- NEW HERO IMAGE SECTION --- */
+        .page-hero {
+            position: relative;
+            height: 50vh; /* 50% of the viewport height */
+            background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 41, 88, 0.7); /* Dark blue overlay */
+        }
+        
+        .hero-text {
+            position: relative; /* To stay on top of the overlay */
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            animation: fadeInDown 1.5s ease-out;
+        }
+        
+        /* Main Section Styling */
+        main section {
+            padding: 60px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+        .blue-text { color: var(--primary-color); }
+        .gold-text { color: var(--secondary-color); }
+
+        /* Events Slider Section Styling */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .slider-card {
+            background: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            visibility: hidden; /* For ScrollReveal animation */
+        }
+        
+        .slider-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 450px;
+            background-color: var(--light-gray-bg);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Shows the full image */
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--primary-color) !important;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 44px !important;
+            height: 44px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 20px !important;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--secondary-color) !important;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .card-content .date {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: var(--secondary-color); }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: var(--secondary-color); }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: var(--secondary-color); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+
+        /* Responsive Design */
+        @media(max-width: 992px) {
+             header .container { flex-direction: column; }
+             header nav { margin-top: 15px; }
+        }
+        @media(max-width: 768px) {
+            .hero-text h1 { font-size: 2.5rem; }
+            header nav ul { flex-direction: column; align-items: center; }
+            header nav ul li { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- NEW HERO IMAGE SECTION -->
+    <section class="page-hero">
+        <div class="hero-text">
+            <h1>Club Events & Fellowship</h1>
+        </div>
+    </section>
+
+    <main>
+        <!-- Events Section -->
+        <section id="events">
+            <div class="container">
+                <div class="card-grid">
+                    
+                    <!-- Event 1: Installation Ceremony -->
+                    <div class="slider-card">
+                        <div class="swiper-container" id="event-slider1">
+                            <div class="swiper-wrapper">
+                                <!-- Your images for this event -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0003.jpg" alt="Installation Ceremony Image 1"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0004.jpg" alt="Installation Ceremony Image 2"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>RCH Galaxy Installation Ceremony</h3>
+                            <p class="date">July 2024</p>
+                            <p>Our 2024-25 leadership team, including President Imdad Ali Bughio, was officially installed at a prestigious ceremony at the Hyderabad Club.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Event 2: District Conference -->
+                    <div class="slider-card">
+                        <div class="swiper-container" id="event-slider2">
+                            <div class="swiper-wrapper">
+                                <!-- Your images for this event -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0005.jpg" alt="District Conference Image 1"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0006.jpg" alt="District Conference Image 2"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>District Installation & Conference</h3>
+                            <p class="date">2024-25</p>
+                            <p>Our members attended the annual Rotary International District 3271 conference and installation ceremonies in Karachi for learning, fellowship, and celebration.</p>
+                        </div>
+                    </div>
+
+                    <!-- Event 3: International Fellowship -->
+                    <div class="slider-card">
+                        <div class="swiper-container" id="event-slider3">
+                            <div class="swiper-wrapper">
+                                 <!-- Your images for this event -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0025.jpg" alt="International Fellowship Image 1"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0026.jpg" alt="International Fellowship Image 2"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0027.jpg" alt="International Fellowship Image 3"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0028.jpg" alt="International Fellowship Image 4"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0029.jpg" alt="International Fellowship Image 5"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>International Peace Seminar & Fellowship</h3>
+                            <p class="date">2025</p>
+                            <p>President Imdad Ali Bughio represented our club at an international peace seminar in Kandy, Sri Lanka, and met with the Rotary Club of Singapore, fostering global ties.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 3009567717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- SwiperJS for Sliders -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- ScrollReveal for Animations -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- JAVASCRIPT IS EMBEDDED AT THE END OF THE BODY -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.pathname === window.location.pathname && this.hash) {
+                        e.preventDefault();
+                        let target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            // Initialize a slider for each event card
+            new Swiper('#event-slider1', {
+                loop: true,
+                pagination: { el: '#event-slider1 .swiper-pagination', clickable: true },
+                navigation: { nextEl: '#event-slider1 .swiper-button-next', prevEl: '#event-slider1 .swiper-button-prev' },
+            });
+
+            new Swiper('#event-slider2', {
+                loop: true,
+                pagination: { el: '#event-slider2 .swiper-pagination', clickable: true },
+                navigation: { nextEl: '#event-slider2 .swiper-button-next', prevEl: '#event-slider2 .swiper-button-prev' },
+            });
+            
+            new Swiper('#event-slider3', {
+                loop: true,
+                pagination: { el: '#event-slider3 .swiper-pagination', clickable: true },
+                navigation: { nextEl: '#event-slider3 .swiper-button-next', prevEl: '#event-slider3 .swiper-button-prev' },
+            });
+            
+            // Initialize ScrollReveal
+            const sr = ScrollReveal({
+                distance: '50px',
+                duration: 1500,
+                easing: 'ease-in-out',
+                reset: false
+            });
+
+            // Apply animations to slider cards
+            sr.reveal('.slider-card', {
+                origin: 'bottom',
+                interval: 200 // Staggered animation
+            });
+        });
+    </script>
+
+</body>
+</html>

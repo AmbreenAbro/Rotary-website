@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects | Rotary Club Hyderabad GALAXY</title>
+    
+    <!-- Link to SwiperJS CSS for sliders -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;    
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #ffffff;
+            color: #333;
+            padding: 5px 0;
+            border-bottom: 4px solid #005daa; /* Main Blue */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+            height: 80px;
+        }
+
+        header nav ul {
+            list-style: none; padding: 0; margin: 0; display: flex; align-items: center;
+        }
+
+        header nav ul li {
+            margin-left: 25px;
+        }
+
+        header nav ul li a {
+            color: #005daa; text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover {
+            color: #f7a81b; /* Main Gold */
+        }
+        
+        /* Hero Slider Section */
+        #hero-slider {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            color: #ffffff;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 3;
+        }
+        #hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 4;
+            width: 90%;
+            max-width: 800px;
+        }
+        #hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-button {
+            display: inline-block; background: #f7a81b; color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 50px; margin-top: 1rem; font-weight: bold; font-size: 1.1rem; transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-button:hover {
+            background: #e69500; transform: translateY(-3px);
+        }
+
+        /* General Section Styling */
+        main section { padding: 60px 0; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+        .blue-text { color: #005daa; }
+        .gold-text { color: #f7a81b; }
+
+
+        /* --- NEW PROJECTS SECTION STYLING --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .slider-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            visibility: hidden; /* For ScrollReveal animation */
+        }
+        
+        .slider-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 450px;
+            background-color: #e9ecef;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Shows the full image */
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: #005daa !important;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 44px !important;
+            height: 44px !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 20px !important;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #f7a81b !important;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            color: #005daa;
+        }
+
+        .card-content .date {
+            font-weight: bold;
+            color: #f7a81b;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #f7a81b; padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: #f7a81b; }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: #f7a81b; }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: #f7a81b; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+
+        /* Responsive Design */
+        @media(max-width: 992px) {
+             header .container { flex-direction: column; }
+             header nav { margin-top: 15px; }
+        }
+        @media(max-width: 768px) {
+            #hero-content h1 { font-size: 2.5rem; }
+            #hero-content p { font-size: 1.2rem; }
+            header nav ul { flex-direction: column; align-items: center; }
+            header nav ul li { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="team .html">Team</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero-slider">
+        <div class="slide active" style="background-image: url('image/project.jpg');"></div>
+        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div id="hero-content">
+            <h1>Our Community Projects</h1>
+            <p>Creating Lasting Change Through Action</p>
+            <a href="#projects" class="cta-button">View Our Work</a>
+        </div>
+    </section>
+
+    <main>
+        <!-- Projects Section with Professional Sliders -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title"><span class="blue-text">Our</span> <span class="gold-text">Projects</span></h2>
+                <div class="card-grid">
+
+                    <div class="slider-card">
+                        <div class="swiper-container" id="project-slider1">
+                            <div class="swiper-wrapper">
+                                <!-- Add your project images here -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0009.jpg" alt="Children at SOS Village"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0019.jpg" alt="Community gathering"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Supporting SOS Children's Villages</h3>
+                            <p class="date">Ongoing</p>
+                            <p>A cornerstone of our service. We attended the groundbreaking for SOS Prem Nagar, visited the Jamshoro village, and hosted a cultural "Mach Kachehri" for the children.</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-card">
+                        <div class="swiper-container" id="project-slider2">
+                            <div class="swiper-wrapper">
+                                <!-- Add your project images here -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0018.jpg" alt="Distributing winter clothes"></div>
+                                <div class="swiper-slide"><img src="" alt="Happy recipients of winter drive"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Winter Drive for Tando Hyder</h3>
+                            <p class="date">January 8, 2025</p>
+                            <p>In partnership with Rehmat Foundation, we distributed warm clothes to underprivileged brick kiln workers, providing vital support during the cold season.</p>
+                        </div>
+                    </div>
+
+                    <div class="slider-card">
+                        <div class="swiper-container" id="project-slider3">
+                            <div class="swiper-wrapper">
+                                <!-- Add your project images here -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0021.jpg" alt="Telemedicine setup"></div>
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0020.jpg" alt="Doctor consulting online"></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3>Rotary Smart Village Telemedicine Clinic</h3>
+                            <p class="date">January 11, 2025</p>
+                            <p>Our delegation attended the inauguration of a state-of-the-art telemedicine clinic in Mirpur Khas, bringing modern healthcare to remote communities.</p>
+                        </div>
+                    </div>
+
+                     <div class="slider-card">
+                        <div class="swiper-container" id="project-slider4">
+                            <div class="swiper-wrapper">
+                                <!-- Add your project images here -->
+                                <div class="swiper-slide"><img src="image/Rotary Club hyderabad (1)_page-0017.jpg" alt="People in a meeting"></div>
+                               
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="card-content">
+                            <h3> Session Pakistan Independent Living Center (PILC)</h3>
+                            <p class="date">January 6, 2025</p>
+                            <p>Our leadership conducted a special session with persons with special abilities, fostering an environment of inclusion and support.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 3009567717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- SwiperJS for Sliders -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- ScrollReveal for Animations -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                let target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Hero Image Slider Logic
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) { slide.classList.add('active'); }
+            });
+        }
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        setInterval(nextSlide, 5000); // Auto-play the hero slider
+
+        // Initialize Project Sliders
+        new Swiper('#project-slider1', {
+            loop: true,
+            pagination: { el: '#project-slider1 .swiper-pagination', clickable: true },
+            navigation: { nextEl: '#project-slider1 .swiper-button-next', prevEl: '#project-slider1 .swiper-button-prev' },
+        });
+
+        new Swiper('#project-slider2', {
+            loop: true,
+            pagination: { el: '#project-slider2 .swiper-pagination', clickable: true },
+            navigation: { nextEl: '#project-slider2 .swiper-button-next', prevEl: '#project-slider2 .swiper-button-prev' },
+        });
+
+        new Swiper('#project-slider3', {
+            loop: true,
+            pagination: { el: '#project-slider3 .swiper-pagination', clickable: true },
+            navigation: { nextEl: '#project-slider3 .swiper-button-next', prevEl: '#project-slider3 .swiper-button-prev' },
+        });
+
+        new Swiper('#project-slider4', {
+            loop: true,
+            pagination: { el: '#project-slider4 .swiper-pagination', clickable: true },
+            navigation: { nextEl: '#project-slider4 .swiper-button-next', prevEl: '#project-slider4 .swiper-button-prev' },
+        });
+        
+        // Initialize ScrollReveal for Animations
+        const sr = ScrollReveal({
+            distance: '50px',
+            duration: 1500,
+            easing: 'ease-in-out',
+            reset: false
+        });
+
+        // Apply animations to all project slider cards
+        sr.reveal('.slider-card', {
+            origin: 'bottom',
+            interval: 200 // Staggered animation
+        });
+        
+        sr.reveal('.section-title', {
+            origin: 'top',
+            duration: 1000
+        });
+    </script>
+
+</body>
+</html>

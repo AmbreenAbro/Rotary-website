@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Rotary Club Hyderabad GALAXY</title>
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation (Consistent) */
+        header {
+            background: #ffffff;
+            padding: 5px 0;
+            border-bottom: 4px solid #005daa;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        #logo img { height: 80px; }
+        header nav ul { list-style: none; padding: 0; margin: 0; display: flex; align-items: center; }
+        header nav ul li { margin-left: 25px; }
+        header nav ul li a { color: #005daa; text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out; }
+        header nav ul li a:hover { color: #f7a81b; }
+        
+        /* --- TEAM PAGE HERO --- */
+        #team-hero {
+            background: linear-gradient(rgba(0, 41, 88, 0.7), rgba(0, 41, 88, 0.7)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2232&auto=format&fit=crop') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+        }
+         .hero-content p {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* Main Content Styling */
+        .content-section {
+            padding: 80px 0;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+        .blue-text { color: #005daa; }
+        .gold-text { color: #f7a81b; }
+
+        /* --- PROFILE CARD GRID --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .profile-card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+            text-align: center;
+            padding: 30px 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .profile-card .profile-pic {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #005daa;
+            margin-bottom: 20px;
+        }
+        .profile-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .profile-card .role {
+            color: #f7a81b;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        .profile-card .contact-info {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .profile-card .contact-info a {
+            color: #005daa;
+            text-decoration: none;
+        }
+        .profile-card .bio-button {
+            background: none;
+            border: 2px solid #005daa;
+            color: #005daa;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .profile-card .bio-button:hover {
+            background: #005daa;
+            color: #ffffff;
+        }
+
+        /* --- MODAL (POP-UP) STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal h4 { margin-top: 0; color: #005daa; }
+        .modal p, .modal ul { font-size: 0.95rem; color: #333; }
+        .modal ul { list-style-position: inside; padding-left: 0; }
+        .modal li { margin-bottom: 5px; }
+
+        /* Footer (Consistent) */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; text-align: left; margin: 0; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #f7a81b; padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: #f7a81b; }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: #f7a81b; }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: #f7a81b; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="Event.html">Evnets</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="team-hero">
+        <div class="hero-content">
+            <h1>Meet Our Team</h1>
+            <p>The Leaders and Members Driving Our Mission</p>
+        </div>
+    </section>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <h2><span class="blue-text">Club</span> <span class="gold-text">Officers</span></h2>
+                <div class="team-grid">
+                    <!-- Wali Muhammad Jatoi -->
+                    <div class="profile-card">
+                        <img src="image/Mr. Wali Muhammad .jpg" alt="Profile of Mr. Wali Muhammad Jatoi" class="profile-pic">
+                        <h3>Mr. Wali Muhammad Jatoi</h3>
+                        <p class="role">Club President (2025-2026)</p>
+                        <div class="contact-info">
+                            <a href="mailto:danishjatoi2013@gmail.com">danishjatoi2013@gmail.com</a><br>
+                            <a href="tel:+9203003791479">+92 03003791479</a>
+                        </div>
+                        <button class="bio-button" onclick="openModal('jatoi-modal')">View Full Bio</button>
+                    </div>
+                    <!-- Dr. Nitasha Abbasi -->
+                    <div class="profile-card">
+                        <img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Dr. Nitasha Abbasi" class="profile-pic">
+                        <h3>Dr. Nitasha Abbasi</h3>
+                        <p class="role">Club Vice President (2025-2026)</p>
+                        <div class="contact-info">
+                             <a href="mailto:nitashaabbasi19@gmail.com">nitashaabbasi19@gmail.com</a><br>
+                             <a href="tel:+92336370569">+92 336370569</a>
+                        </div>
+                    </div>
+                    <!-- Ms Raheela Shah -->
+                     <div class="profile-card">
+                        <img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Ms Raheela Shah" class="profile-pic">
+                        <h3>Ms Raheela Shah</h3>
+                        <p class="role">Club Secretary (2025-2026)</p>
+                        <div class="contact-info">
+                             <a href="mailto:Syedcollegeoftechnology@gmail.com">Syedcollegeoftechnology@gmail.com</a><br>
+                             <a href="tel:+923332840251">+92 333 2840251</a>
+                        </div>
+                    </div>
+                    <!-- Mr. Imdad Ali Bughio -->
+                    <div class="profile-card">
+                        <img src="image/Mr. Imdad Ali .png" alt="Profile of Mr. Imdad Ali Bughio" class="profile-pic">
+                        <h3>Mr. Imdad Ali Bughio</h3>
+                        <p class="role">Club Treasurer (2025-2026)</p>
+                        <div class="contact-info">
+                             <a href="mailto:imdadbughio@gmail.com">imdadbughio@gmail.com</a><br>
+                             <a href="tel:+923003042093">+92 300-3042093</a>
+                        </div>
+                        <button class="bio-button" onclick="openModal('bughio-modal')">View Full Bio</button>
+                    </div>
+                    <!-- Advocate Muhammad Iqbal Khan -->
+                    <div class="profile-card">
+                        <img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Advocate Muhammad Iqbal Khan" class="profile-pic">
+                        <h3>Advocate Muhammad Iqbal Khan</h3>
+                        <p class="role">Club Membership Chair (2025-2026)</p>
+                         <div class="contact-info">
+                             <a href="mailto:innovareconsultants@gmail.com">innovareconsultants@gmail.com</a><br>
+                             <a href="tel:+923013534766">+92 3013534766</a>
+                        </div>
+                    </div>
+                    <!-- Dr. Anwar Muhammad Qureshi -->
+                    <div class="profile-card">
+                        <img src="image/r. Anwar Muhammad .jpg" alt="Profile of Dr. Anwar Muhammad Qureshi" class="profile-pic">
+                        <h3>Dr. Anwar Muhammad Qureshi</h3>
+                        <p class="role">Club Service Projects Chair</p>
+                         <div class="contact-info">
+                             <a href="mailto:dranwarfs@hotmail.com">dranwarfs@hotmail.com</a><br>
+                             <a href="tel:+923003798355">+92 300-3798355</a>
+                        </div>
+                        <button class="bio-button" onclick="openModal('qureshi-modal')">View Full Bio</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section" style="background-color: #ffffff;">
+            <div class="container">
+                <h2><span class="blue-text">Club</span> <span class="gold-text">Members</span></h2>
+                 <div class="team-grid">
+                    <!-- Ms Mahira Noor Abbasi -->
+                    <div class="profile-card">
+                        <img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Ms Mahira Noor Abbasi" class="profile-pic">
+                        <h3>Ms Mahira Noor Abbasi</h3>
+                        <p class="role">Honorary Member</p>
+                        <div class="contact-info">
+                            <a href="mailto:a.mahira@outlook.com">a.mahira@outlook.com</a><br>
+                            <a href="tel:+923356597727">+92 3356597727</a>
+                        </div>
+                    </div>
+                    <!-- Dr Imdad Ali Channa -->
+                    <div class="profile-card">
+                        <img src="image/Dr Imdad Ali Channa.jpg" alt="Profile of Dr Imdad Ali Channa" class="profile-pic">
+                        <h3>Dr Imdad Ali Channa</h3>
+                        <p class="role">Member</p>
+                        <div class="contact-info">
+                            <a href="mailto:imdad.channa1967@gmail.com">imdad.channa1967@gmail.com</a><br>
+                            <a href="tel:+923332227318">+92 3332227318</a>
+                        </div>
+                    </div>
+                     <!-- Mr Dileep Kumar Dharani -->
+                    <div class="profile-card">
+                        <img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Mr Dileep Kumar Dharani" class="profile-pic">
+                        <h3>Mr Dileep Kumar Dharani</h3>
+                        <p class="role">Honorary Member</p>
+                        <div class="contact-info">
+                            <a href="mailto:dileep.dharani@gmail.com">dileep.dharani@gmail.com</a><br>
+                            <a href="tel:+923332604370">+92 333-2604370</a>
+                        </div>
+                    </div>
+                    <!-- Rtr Somia Mehak -->
+                    <div class="profile-card">
+                        <img src="image/Somia .jpg" alt="Profile of Rtr Somia Mehak" class="profile-pic">
+                        <h3>Rtr Somia Mehak</h3>
+                        <p class="role">Honorary Member</p>
+                        <div class="contact-info">
+                            <a href="mailto:Somiamehak26@gmail.com">Somiamehak26@gmail.com</a><br>
+                            <a href="tel:+9203163003972">+92 03163003972</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals for Bios -->
+    <div id="jatoi-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('jatoi-modal')">×</span>
+            <h4>Mr. Wali Muhammad Jatoi</h4>
+            <p>Mr. Jatoi's significant contributions to education and technology are globally recognized. He has served PAF Degree College Faisal, Karachi, SZABIST Karachi, Pakistan Embassy School in Tehran, as Assistant Director IT for the Ministry of Science & Technology, and as an IT Consultant for the Tony Blair Faith Foundation & Global Nomads Group USA. He has also served as Pakistan's Ambassador to the UN Youth Assembly. Currently, he is the National Expert on Information Technology and Allied Sciences for NAVTTC Pakistan.</p>
+            <h4>Key Rotary Roles:</h4>
+            <ul>
+                <li>Club President (2025-2026)</li>
+                <li>Club Young Leaders Contact (2024-2025)</li>
+                <li>Club Public Image Chair (2021-2022)</li>
+                <li>Club Foundation Chair (2018-2019)</li>
+            </ul>
+        </div>
+    </div>
+
+     <div id="bughio-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('bughio-modal')">×</span>
+            <h4>Mr. Imdad Ali Bughio</h4>
+            <p>With over 12 years of service, Mr. Bughio is a deeply experienced Rotarian and a recognized Paul Harris Fellow.</p>
+            <h4>Primary Profession:</h4>
+            <p>Deputy Director ORIC at Mehran University of Engineering and Technology Jamshoro.</p>
+            <h4>Key Rotary Roles:</h4>
+            <ul>
+                <li>Assistant Governor, District 3271 (2023-2024)</li>
+                <li>Club Treasurer (2021-2026)</li>
+                <li>Past Club President (Hyderabad & Hyderabad Galaxy)</li>
+                <li>Extensive experience as Rotaract Advisor, Membership Chair, and Foundation Chair.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="qureshi-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('qureshi-modal')">×</span>
+            <h4>Dr. Anwar Muhammad Qureshi</h4>
+            <p>Dr. Qureshi has a long and distinguished history with Rotary, with over 9 years of service. He is a recognized Paul Harris Fellow.</p>
+            <h4>Primary Profession:</h4>
+            <p>Medical Doctor (Neuro Physiatrist) at Neuro Medical Centre.</p>
+            <h4>Key Rotary Roles:</h4>
+            <ul>
+                <li>Assistant Governor, District 3271 (2019-2020, 2025-2026)</li>
+                <li>Club Service Projects Chair (2025-2026)</li>
+                <li>Club Executive Secretary/Director (2020-2026)</li>
+                <li>Past Club President (2017-2018)</li>
+                <li>Past Club Treasurer (2018-2020)</li>
+                <li>Rotaract Advisor (2022-2023)</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 3009567717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Modal open/close functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

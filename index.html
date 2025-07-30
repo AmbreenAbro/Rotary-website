@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotary Club Hyderabad GALAXY</title>
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            scroll-behavior: smooth;
+        }
+        
+        /* Ensure all images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 85%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #ffffff;
+            color: #333;
+            padding: 5px 0;
+            border-bottom: 4px solid #005daa; /* Main Blue */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+            height: 80px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #005daa;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        header nav ul {
+            list-style: none; padding: 0; margin: 0; display: flex; align-items: center;
+        }
+
+        header nav ul li {
+            margin-left: 25px; position: relative;
+        }
+
+        header nav ul li a {
+            color: #005daa; text-decoration: none; font-weight: bold; font-size: 16px; padding: 20px 0; display: block; transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover, .dropdown:hover .dropbtn {
+            color: #f7a81b; /* Main Gold */
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none; position: absolute; background-color: #ffffff; min-width: 260px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; list-style: none; padding: 0; margin-top: -5px; border-radius: 0 0 8px 8px; border-top: 3px solid #f7a81b;
+        }
+        .dropdown-content a { padding: 12px 16px; font-size: 15px; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* --- SLIDER SECTION --- */
+        #hero-slider {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            color: #ffffff;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 1;
+        }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 41, 88, 0.7);
+            z-index: 3;
+        }
+        
+        /* Slider Navigation */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 5;
+            padding: 0 20px;
+            box-sizing: border-box;
+            transform: translateY(-50%);
+        }
+        
+        .slider-nav button {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .slider-nav button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Slider Pagination */
+        .slider-pagination {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 5;
+        }
+        
+        .slider-pagination span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .slider-pagination span.active {
+            background: #f7a81b;
+        }
+        
+        #hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 4;
+            width: 90%;
+            max-width: 800px;
+        }
+        #hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .cta-button {
+            display: inline-block; background: #f7a81b; color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 50px; margin-top: 1rem; font-weight: bold; font-size: 1.1rem; transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-button:hover {
+            background: #e69500; transform: translateY(-3px);
+        }
+
+        /* General Section Styling */
+        main section { padding: 60px 0; }
+        h2 { text-align: center; margin-bottom: 3rem; font-size: 2.8rem; font-weight: 700; }
+        .blue-text { color: #005daa; }
+        .gold-text { color: #f7a81b; }
+
+        /* About Us Section */
+        #about .about-content {
+            display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+        }
+        #about .about-text { flex: 1; min-width: 300px; font-size: 1.1rem; }
+        #about .about-video { flex: 1; min-width: 300px; text-align: center; }
+        #about video { width: 100%; max-width: 560px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+
+        /* --- REDESIGNED SERVICES SECTION --- */
+        #services { background: #ffffff; }
+        .service-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+        }
+        .service-card {
+            background: #f7a81b; /* Main Gold/Orange Color */
+            color: #ffffff; /* White text for contrast */
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(247, 168, 27, 0.4);
+        }
+        .service-card h3 {
+            font-size: 1.8rem; /* Made icon slightly larger */
+            margin-bottom: 15px;
+            color: #ffffff; /* Ensured icon is white */
+        }
+        .service-card h4 {
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .service-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+    
+
+        /* Team Section */
+        #team { background: #ffffff; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .team-member { text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; }
+        .team-member:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid #f0f0f0; }
+        .team-member h4 { font-size: 1.3rem; color: #005daa; margin-bottom: 5px; }
+        .team-member p { font-style: italic; color: #555; margin-top: 0; margin-bottom: 10px; }
+        .team-member a { word-break: break-all; color: #f7a81b; text-decoration: none; }
+        .team-member a:hover { text-decoration: underline; }
+        
+        /* Affiliations Section */
+        #sponsorships { background: #f9f9f9; }
+        .sponsorship-content { display: flex; justify-content: space-around; gap: 2rem; flex-wrap: wrap; }
+        .sponsorship-column { flex: 1; min-width: 300px; background: #ffffff; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .sponsorship-column h3 { color: #005daa; border-bottom: 2px solid #f7a81b; padding-bottom: 10px; margin-bottom: 15px; }
+        .sponsorship-column ul { list-style: none; padding: 0; }
+        .sponsorship-column li { padding: 12px; margin-bottom: 10px; border-radius: 5px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+        .sponsorship-column li:last-child { border-bottom: none; }
+        .sponsorship-column .status { font-size: 0.8em; font-weight: bold; padding: 4px 10px; border-radius: 10px; color: white; }
+        .status.active { background-color: #28a745; }
+        .status.terminated { background-color: #dc3545; }
+
+        /* Why Choose Us Section */
+        #why-choose-us { background: #005daa; color: #ffffff; text-align: center; }
+        #why-choose-us h2 { color: #ffffff; }
+        #why-choose-us ul { list-style: none; padding: 0; font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
+        #why-choose-us li { margin: 15px 0; border: 1px solid #f7a81b; padding: 15px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
+        
+        /* Footer */
+        footer { background: #252525; color: #ccc; padding: 40px 0 20px 0; }
+        .footer-container { width: 85%; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding-bottom: 30px; }
+        .footer-about img { height: 70px; margin-bottom: 15px; }
+        .footer-about p { font-size: 0.9rem; max-width: 300px; }
+        .footer-links h4, .footer-contact h4 { color: #ffffff; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #f7a81b; padding-bottom: 8px; display: inline-block; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li a { color: #ccc; text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; }
+        .footer-links ul li a:hover { color: #f7a81b; }
+        .footer-contact p { margin-bottom: 15px; display: flex; align-items: flex-start; }
+        .footer-contact p span { margin-right: 10px; font-size: 1.2rem; color: #f7a81b; }
+        .footer-contact a { color: #ccc; text-decoration: none; }
+        .footer-contact a:hover { color: #f7a81b; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 0.9rem; }
+
+        /* Responsive Design */
+        /* Large screens */
+        @media(min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            #hero-content {
+                max-width: 900px;
+            }
+            
+            .service-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Medium-large screens */
+        @media(max-width: 1199px) and (min-width: 993px) {
+            .service-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Tablets */
+        @media(max-width: 992px) {
+            header .container { flex-direction: column; }
+            header nav { margin-top: 15px; }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .service-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sponsorship-content {
+                flex-direction: column;
+            }
+            
+            .sponsorship-column {
+                width: 100%;
+            }
+        }
+        
+        /* Medium tablets and large phones */
+        @media(max-width: 850px) {
+            .service-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-member img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            #why-choose-us ul {
+                padding: 0 15px;
+            }
+        }
+        
+        /* Mobile devices */
+        @media(max-width: 768px) {
+            #hero-content h1 { font-size: 2.5rem; }
+            #hero-content p { font-size: 1.2rem; }
+            
+            /* Mobile menu */
+            .menu-toggle {
+                display: flex;
+            }
+            
+            header nav ul {
+                position: fixed;
+                top: 85px;
+                left: -100%;
+                flex-direction: column;
+                background-color: #ffffff;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+            
+            header nav ul.active {
+                left: 0;
+            }
+            
+            header nav ul li {
+                margin: 10px 0;
+            }
+            
+            header nav ul li a {
+                padding: 10px 0;
+            }
+            
+            /* Adjust dropdown for mobile */
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: #f8f8f8;
+                border-radius: 0;
+                border-top: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-about p {
+                margin: 0 auto;
+            }
+            
+            .footer-links ul, .footer-contact {
+                padding: 0;
+            }
+            
+            .footer-contact p {
+                justify-content: center;
+            }
+        }
+        
+        /* Additional breakpoint for larger mobile screens */
+        @media(max-width: 480px) {
+            #hero-slider {
+                height: 70vh;
+            }
+            
+            #hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            #hero-content p {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .team-member img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            main section {
+                padding: 40px 0;
+            }
+            
+            #why-choose-us li {
+                padding: 10px;
+            }
+            
+            .slider-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .slider-pagination {
+                bottom: 10px;
+            }
+            
+            .slider-pagination span {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .service-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .service-card p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Extra small devices */
+        @media(max-width: 320px) {
+            #hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            #hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .slider-nav button {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            
+            .service-card {
+                padding: 15px;
+            }
+            
+            .service-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .service-card h4 {
+                font-size: 1.1rem;
+            }
+            
+            .service-card p {
+                font-size: 0.8rem;
+            }
+            
+            .team-member {
+                padding: 20px;
+            }
+            
+            .team-member h4 {
+                font-size: 1.1rem;
+            }
+            
+            .team-member p {
+                font-size: 0.9rem;
+            }
+            
+            .team-member a {
+                font-size: 0.9rem;
+            }
+            
+            .footer-container {
+                gap: 20px;
+                padding-bottom: 20px;
+            }
+            
+            .footer-about img {
+                height: 60px;
+            }
+            
+            .footer-about p {
+                font-size: 0.8rem;
+            }
+            
+            .footer-links h4, .footer-contact h4 {
+                font-size: 1rem;
+            }
+            
+            .footer-links ul li a {
+                font-size: 0.9rem;
+            }
+            
+            .footer-contact p {
+                font-size: 0.9rem;
+            }
+            
+            .footer-contact p span {
+                font-size: 1rem;
+            }
+            
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" id="logo">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="team .html">Team</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                    <li><a href="Event.html">Events</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+    <section id="hero-slider">
+        <!-- The Slider with new images -->
+        <div class="slide active" style="background-image: url('image/md_QimEALVl2f91EaWm.jpg');"></div>
+        <div class="slide" style="background-image: url('image/md_QimEALVl2f91EaWm.jpg');"></div>
+        <div class="slide" style="background-image: url('image/md_AetGpJ68mx73.jpg');"></div>
+        <div class="slide" style="background-image: url('image/20210812_US_320.jpg');"></div>
+        
+        <!-- Slider Navigation -->
+        <div class="slider-nav">
+            <button id="prevSlide">&#10094;</button>
+            <button id="nextSlide">&#10095;</button>
+        </div>
+        
+        <!-- Slider Pagination -->
+        <div class="slider-pagination">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+        </div>
+        
+        <!-- The Content -->
+        <div id="hero-content">
+            <h1>Welcome to Rotary Club Hyderabad GALAXY</h1>
+            <p>Serving Our Community, Building a Better Future</p>
+            <a href="contact.html" class="cta-button">Get Involved</a>
+        </div>
+    </section>
+
+    <main>
+        <section id="about" class="container">
+            <h2><span class="blue-text">About</span> <span class="gold-text">Us</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Rotary Club Hyderabad GALAXY is a proud part of Rotary International, a global network of professionals and leaders working together to bring positive change in society. We were founded with a goal to uplift lives and support community growth in Hyderabad, District 3271, Sindh, Pakistan.</p>
+                    <p>Our members come from different backgrounds but share one mission — “Service Above Self”. We are a non-political, non-religious service organization, actively working in the areas of health, education, environment, and social welfare.</p>
+                </div>
+                <div class="about-video">
+                    <video controls poster="Aout.mp4">
+                        <source src="Aout.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service-cards">
+                    <div class="service-card"><h3>💙</h3><h4>Community Welfare</h4><p>We help families in need through food distribution, clean water projects, and basic living support.</p></div>
+                    <div class="service-card"><h3>🩺</h3><h4>Healthcare Services</h4><p>We arrange free medical camps, blood donation drives, and health awareness events for underserved communities.</p></div>
+                    <div class="service-card"><h3>🎓</h3><h4>Education Support</h4><p>We provide scholarships, distribute school supplies, and conduct career counseling for students.</p></div>
+                    <div class="service-card"><h3>🌳</h3><h4>Environmental Action</h4><p>Our club organizes tree plantation drives, clean-up campaigns, and promotes environmental care.</p></div>
+                    <div class="service-card"><h3>🛡️</h3><h4>Disaster Relief</h4><p>In emergencies, we quickly respond by providing food, medicines, and essentials to affected families.</p></div>
+                    <div class="service-card"><h3>🚀</h3><h4>Youth Empowerment</h4><p>We invest in youth leadership, professional development, and skills training for a brighter future.</p></div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section id="team">
+            <div class="container">
+                <h2><span class="blue-text">Our</span> <span class="gold-text">Team</span></h2>
+                <div class="team-grid">
+                    <div class="team-member"><img src="image/Mr. Wali Muhammad .jpg" alt="Profile of Mr. Wali Muhammad Jatoi"><h4>Mr. Wali Muhammad Jatoi</h4><p>Club President</p><a href="mailto:danishjatoi2013@gmail.com">danishjatoi2013@gmail.com</a></div>
+                    <div class="team-member"><img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Dr. Nitasha Abbasi"><h4>Dr. Nitasha Abbasi</h4><p>Club Vice President</p><a href="mailto:nitashaabbasi19@gmail.com">nitashaabbasi19@gmail.com</a></div>
+                    <div class="team-member"><img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Ms Raheela Shah"><h4>Ms Raheela Shah</h4><p>Club Secretary</p><a href="mailto:Syedcollegeoftechnology@gmail.com">Syedcollegeoftechnology@gmail.com</a></div>
+                    <div class="team-member"><img src="image/Mr. Imdad Ali .png" alt="Profile of Mr. Imdad Ali Bughio"><h4>Mr. Imdad Ali Bughio</h4><p>Club Treasurer</p><a href="mailto:imdadbughio@gmail.com">imdadbughio@gmail.com</a></div>
+                    <div class="team-member"><img src="image/png-clipart-ohana-mud-run-rotary-international-rotary-district-6820-rotary-club-of-san-francisco-rotary-foundation-new-company-text-thumbnail.png" alt="Profile of Advocate Muhammad Iqbal Khan"><h4>Advocate Muhammad Iqbal Khan</h4><p>Club Membership Chair</p><a href="mailto:innovareconsultants@gmail.com">innovareconsultants@gmail.com</a></div>
+                    <div class="team-member"><img src="image/r. Anwar Muhammad .jpg" alt="Profile of Dr. Anwar Muhammad Qureshi"><h4>Dr. Anwar Muhammad Qureshi</h4><p>Club Service Projects Chair & Executive Secretary</p><a href="mailto:dranwarfs@hotmail.com">dranwarfs@hotmail.com</a></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="sponsorships">
+            <div class="container">
+                <h2><span class="blue-text">Our</span> <span class="gold-text">Affiliations</span></h2>
+                <div class="sponsorship-content">
+                    <div class="sponsorship-column"><h3>Sponsored by</h3><ul><li>Nawabshah (Rotary Club) <span class="status active">Active</span></li></ul></div>
+                    <div class="sponsorship-column"><h3>Sponsor of</h3><ul><li>Hyderabad Eagles (Rotary Club) <span class="status active">Active</span></li><li>Hyderabad Peace (Rotaract Club) <span class="status active">Active</span></li><li>Jamshoro (Rotaract Club) <span class="status terminated">Terminated</span></li><li>Hyderabad Inspire (Rotaract Club) <span class="status terminated">Terminated</span></li><li>Hyderabad Galaxy (Rotaract Club) <span class="status terminated">Terminated</span></li></ul></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us">
+            <div class="container">
+                <h2>Why Choose Rotary?</h2>
+                <ul>
+                    <li>✔ Trusted Global Network of Service Leaders</li>
+                    <li>✔ Transparent Work with Visible Results</li>
+                    <li>✔ Life-changing Experiences Through Volunteering</li>
+                    <li>✔ Personal and Professional Growth Opportunities</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="image/Rotary.jpg" alt="Rotary Club Hyderabad GALAXY Logo">
+                <p>A part of Rotary International, a global network of leaders dedicated to tackling the world’s most pressing humanitarian challenges.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p><span>📍</span>House No. A-3, Sindh University Colony, Jamshoro, Sindh, Hyderabad, 76020, Pakistan</p>
+                <p><span>📞</span><a href="tel:+923009567717">+92 3009567717</a></p>
+                <p><span>✉️</span><a href="mailto:rchgalaxy3271@gmail.com">rchgalaxy3271@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2024 Rotary Club Hyderabad GALAXY. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                let target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Image Slider Logic
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Auto-play the slider
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        
+        // Slider navigation functionality
+        const prevSlideBtn = document.getElementById('prevSlide');
+        const nextSlideBtn = document.getElementById('nextSlide');
+        const dots = document.querySelectorAll('.dot');
+        
+        function updateDots(index) {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        prevSlideBtn.addEventListener('click', function() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+            updateDots(currentSlide);
+        });
+        
+        nextSlideBtn.addEventListener('click', function() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+            updateDots(currentSlide);
+        });
+        
+        // Dot navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                currentSlide = slideIndex;
+                showSlide(currentSlide);
+                updateDots(currentSlide);
+            });
+        });
+        
+        // Update dots when slide changes automatically
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+            updateDots(currentSlide);
+        }
+        
+        // Auto-play the slider
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.querySelector('header nav ul');
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+        
+        // Handle dropdowns on mobile
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const dropbtn = dropdown.querySelector('a');
+            dropbtn.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target);
+            const isClickInsideToggle = menuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickInsideToggle && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                
+                // Close any open dropdowns
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+        
+        // Close menu when resizing to larger screens
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+                
+                // Reset dropdowns
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
